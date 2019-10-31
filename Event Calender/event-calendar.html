@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Event Calendar</title>
+
+	<!-- <link href='http://fullcalendar.io/js/fullcalendar-2.2.5/fullcalendar.css' rel='stylesheet' /> -->
+	<link rel="stylesheet" href="fullcalendar.css" />
+	<link rel="stylesheet" href="jquery.mCustomScrollbar.css">
+	<link rel="stylesheet" href="calender.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+        .wrapper{
+            max-width: 600px;
+            margin: 100px auto;
+        }
+		.my-calender{
+			position: relative;
+		}
+    </style>
+    
+</head>
+<body>
+    
+    <div class="wrapper">
+		
+		<div class="my-calender">
+			<div id='calendar'></div>
+		</div>
+		        
+    </div>
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src='http://fullcalendar.io/js/fullcalendar-2.2.5/lib/moment.min.js'></script>
+	<script src='http://fullcalendar.io/js/fullcalendar-2.2.5/fullcalendar.min.js'></script>
+	<script src="jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script>
+
+$(document).ready(function() {
+
+	$('.my-calender').prepend('<div class="my-calender--popup"></div>');
+
+	/*
+				<a href="" class="my-calender--popup-btn-close">X</a>
+				<h2>Event Details</h2>
+				
+
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting
+						industry. Lorem Ipsum has been the industry's standard dummy text ever a galley of type and scrambled. Lorem Ipsum is simply dummy text of the has been the industry's.</p>
+				
+				<div class="my-calender--dater">
+					<span class="mcd--date">26</span>
+					<span class="mcd--day">Saturday</span>
+					<span class="mcd--month-year">September, 2019</span>
+				</div>
+
+				<p>when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum standard dummy. when an unknown printer took a galley of type and scrambled. Lorem Ipsum is simply dummy text of the printing and typesetting industry. typesetting industry. Lorem Ipsum. when an unknown printer took a galley of type and scrambled.</p>
+				
+				*/
+			
+
+		$('body').on('click','.my-calender--popup-btn-close,.my-calender--overlay',function(e){
+			e.preventDefault();
+			$(this).closest('.my-calender').removeClass('open');
+            $('.my-calender--overlay').remove();
+            $(".my-calender--popup .wrap").mCustomScrollbar("destroy");
+        });
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			defaultDate: '2019-09-12',
+			defaultView: 'month',
+			editable: false,
+			eventClick: function(info) {
+				// alert('Event: ' + info.event.title);
+				// alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+				// alert('View: ' + info.view.type);
+
+				// change the border color just for fun
+				//info.el.style.borderColor = 'red';
+				console.log(info.title);
+				console.log(info.start._i);
+				console.log(info.detail);
+
+				$('.my-calender').addClass('open');
+				$('.my-calender').prepend('<div class="my-calender--overlay"></div>');
+
+				var html = '<a href="" class="my-calender--popup-btn-close"><em class="fa fa-times"></em></a>' +
+                           ' <h2 class="h2"><span>'+ info.title +'</span></h2>'+
+                           ' <div class="wrap">'+
+                            '<div class="my-calender--dater">' +
+                                '<span class="mcd--date">'+ info.extendedProps.date +'</span>'+
+                                '<span class="mcd--day">Saturday</span>'+
+                                '<span class="mcd--month-year">September, 2019</span>'+
+                            '</div>'+
+                            info.detail +                            
+                        '</div>';
+
+				$('.my-calender--popup').html(html);
+				
+				$(".my-calender--popup .wrap").mCustomScrollbar("destroy");
+                $('.my-calender--popup .wrap').mCustomScrollbar({ scrollInertia: 20 });
+
+
+			},
+			events: [
+				{
+					title: 'All Day Event',
+					start: '2019-09-01',
+					detail: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of varraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<\/p><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>',
+					extendedProps: {
+                        date: 26,
+                        day: 'Saturday',
+                        month: 'September, 2019'
+					},
+					backgroundColor: '#09a5e7',
+					borderColor: '#09a5e7'
+				},
+				{
+					title: 'Long Event',
+					start: '2019-09-07',
+                    end: '2019-09-10',
+                    detail: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of varraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<\/p><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>',
+					extendedProps: {
+                        date: 26,
+                        day: 'Saturday',
+                        month: 'September, 2019'
+					},
+					backgroundColor: '#09a5e7',
+					borderColor: '#09a5e7'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+                    start: '2019-09-09T16:00:00',
+                    detail: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of varraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<\/p><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>',
+					extendedProps: {
+                        date: 26,
+                        day: 'Saturday',
+                        month: 'September, 2019'
+					},
+					backgroundColor: '#e8b8b8',
+					borderColor: '#e8b8b8'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+                    start: '2019-09-16T16:00:00',
+                    detail: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of varraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<\/p><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>',
+					extendedProps: {
+                        date: 26,
+                        day: 'Saturday',
+                        month: 'September, 2019'
+					},
+					backgroundColor: '#6380fc',
+					borderColor: '#6380fc'
+				},
+				{
+					title: 'Meeting',
+					start: '2019-09-12T10:30:00',
+                    end: '2019-09-12T12:30:00',
+                    detail: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of varraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<\/p><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>',
+					extendedProps: {
+                        date: 26,
+                        day: 'Saturday',
+                        month: 'September, 2019'
+					},
+					backgroundColor: '#09a5e7',
+					borderColor: '#09a5e7'
+				},
+				{
+					title: 'Lunch',
+                    start: '2019-09-12T12:00:00',
+                    detail: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of varraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<\/p><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>',
+					extendedProps: {
+                        date: 26,
+                        day: 'Saturday',
+                        month: 'September, 2019'
+					},
+					backgroundColor: '#e8b8b8',
+					borderColor: '#e8b8b8'
+				},
+				{
+					title: 'Birthday Party',
+                    start: '2019-09-13T07:00:00',
+                    detail: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of varraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<\/p><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>',
+					extendedProps: {
+                        date: 26,
+                        day: 'Saturday',
+                        month: 'September, 2019'
+					},
+					backgroundColor: '#6380fc',
+					borderColor: '#6380fc'
+				},
+				{
+					title: 'Click for Google',
+					url: 'http://google.com/',
+                    start: '2019-09-28',
+                    detail: '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of varraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<\/p><p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>',
+					extendedProps: {
+                        date: 28,
+                        day: 'Monday',
+                        month: 'September, 2019'
+					},
+					backgroundColor: '#09a5e7',
+					borderColor: '#09a5e7'
+				}
+			],
+			eventOverlap: function(stillEvent, movingEvent) {
+				return stillEvent.allDay && movingEvent.allDay;
+			}
+		});
+		
+	});
+
+
+    </script>
+
+</body>
+</html>
