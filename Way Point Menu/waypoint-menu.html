@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Waypoint Menu</title>
+    <style>
+        body{
+            margin: 0;
+            padding:0;
+            overflow: hidden;
+        }
+            .body{
+                border:1px solid black;width:100%;height:100vh;overflow:scroll;
+            }
+            .nav{
+              position:fixed;
+              top:0;
+              left:0;
+              display:block;
+              width:100%;
+              background-color: rgba(255, 255, 255, 0.8);
+              box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+              text-align: center;
+              padding: 10px 0;
+            }
+            .nav a{
+                display: inline-block;
+                background: #f1f1f1;
+                padding: 10px;
+                border: 1px solid #ddd;
+                text-decoration: none;
+                font-size: 1.1rem;
+                font-family: 'Tahoma',sans-serif;
+                font-weight: 900;
+                color: #777;
+            }
+            .sec{
+              background:#ddd;
+              padding:500px 80px;
+              text-align:center;
+              font-size:50px;
+              margin:30px;
+            }
+            .nav a.active{
+              background:#316fbd;
+              color:#fff;
+              display:inline-block;
+              padding:10px;
+            }
+    </style>
+    
+</head>
+<body>
+        <div id="body" class="body">
+            <nav class="nav" data-toggle="waypoint">
+                <a class="active" href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="sec" id="home">Home</div>
+            <div class="sec" id="about">About</div>
+            <div class="sec" id="contact">Contact</div>
+        </div>
+
+        <script>
+
+                // Properties
+                var scrollArea          =   document.querySelector('.body'),
+                    section             =   document.querySelectorAll('.sec'),
+                    waypoint            =   document.querySelector('[data-toggle="waypoint"]'),
+                    waypointAnchors     =   waypoint.querySelectorAll('a');
+                    //waypointTarget      =   waypointAnchors.getAttribute('href');
+                
+                // Methods
+                var myFunc = function(){
+
+                    section.forEach(function(item){
+                        //var sectionTop      =   item.offset().top,
+                        //sectionBottom       =   sectionTop + item.innerHeight;
+                        console.log(item.offset().top);
+
+                        ;
+                        /*
+                        if( scrollArea.scrollTop >= sectionTop && scrollArea.scrollTop <= sectionBottom ){
+                            this.classList.add("mystyle");
+                        }
+                        */
+                    });
+                    
+                    for (i = 0; i <= waypointAnchors.length; i++) {
+                        //console.log(waypointAnchors[i]);
+                       // var waypointTarget = waypointAnchors[i].getAttribute("href");
+                       // console.log(waypointTarget);
+
+                    };
+                    //console.log(scrollArea.scrollTop);
+                    
+                    
+
+                };
+                
+                // Handlers
+                scrollArea.addEventListener('scroll', myFunc); 
+        
+        </script>
+</body>
+</html>
