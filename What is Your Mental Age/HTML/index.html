@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html lang="en" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html lang="en" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=10">
+    <title>What is Your Mental Age?</title>
+    <meta property="og:image" content="http://zsiddiqui.com/check-mental-age/assets/img/cyma.png" />
+    <meta property="og:type" content="X" />
+    <meta property="og:url" content="http://zsiddiqui.com/check-mental-age" /> 
+    <meta property="og:title" content="What is Your Mental Age?" />
+    <meta property="og:description" content="Calculate your mental age via answer the 10 questions." /> 
+    <link
+        href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext"
+        rel="stylesheet">
+    <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css"> -->
+    <!--[if (gt IE 8)|!(IE)]><!-->
+    <link rel="stylesheet" href="assets/css/ie.css">
+    <!--<![endif]-->
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138703141-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-138703141-1');
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <header class="header-main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 header-main--left">
+                                                
+                    </div>
+                    <div class="col-md-8 col-sm-8 header-main--right">
+                            <h1 class="h1">What is Your Mental Age?</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container-main">
+            <div class="container-fluid">
+
+                <div class="row">
+
+                    <div class="col-md-8 col-sm-12 col-xs-12">
+                        <section class="panel panel-primary question-area">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Question <span class="question-current-number"></span> of 10</h3>
+                            </div>
+                            <div class="panel-body">
+                                
+                                <h2 class="h2 question-current"></h2>
+                                <p id="finalResult"></p>
+                                <ul class="question-answers"></ul>
+
+                                <!-- <div class="form-group">
+                                    <label for="">User</label>
+                                    <input type="text" id="user">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Age</label>
+                                    <input type="text" id="age">
+                                </div>
+                                <button onclick="saveCookies(); return false;">Save to Cookies</button>
+                                <button onclick="loadCookies(); return false;">Load From Cookies</button>
+
+                                <p id="output"></p> -->
+
+                            </div>
+                            <div class="panel-footer text-right">
+                                <button id="saveQuiz" class="btn btn-primary">Save & Load Next Question</button>
+                                <button id="resetQuiz" class="btn btn-primary">Reset</button>
+                            </div>
+                        </section>
+                    </div><!-- // col -->
+
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="panel panel-gray">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">History Status</h3>
+                            </div>
+                            <div class="panel-body" id="result">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- // row -->
+
+                
+
+            </div>
+        </main>
+
+        <footer class="footer-main">
+            <div class="container-fluid">
+                <p>&copy; Copyright 2019. All Rights Reserved by <a href="http://www.zsiddiqui.com" target="_blank">zsiddiqui.com</a></p>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- Javascripts -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/site.js"></script>
+    <script>
+            var myCookies = {};
+            
+            function saveCookies(){
+                var user = $('#user').val();
+                var age = $('#age').val();
+                myCookies['_user'] = user; //document.getElementById('user').value;
+                myCookies['_uage'] = age; //document.getElementById('age').value;
+                
+                // Start reusable Code
+                document.cookie = "";
+                var expiresAttrib = new Date(Date.now()+60*1000).toString();
+                for(var key in myCookies){
+                    cookieString = key+"="+myCookies[key]+";"+expiresAttrib+";";
+                    document.cookie = cookieString;
+                }
+                //End reusable code
+                document.getElementById("output").innerHTML = document.cookie;
+               // alert('Zuhaib');
+            }
+            
+            function loadCookies(){
+                //start reusable code
+                myCookies = {};
+                var kv = document.cookie.split(";");
+                for(var id in kv)
+                {
+                    var cookie = kv[id].split("=");
+                    myCookies[cookie[0].trim()] = cookie[1];
+                }
+                //end reusable code
+                document.getElementById("user").value = myCookies["_user"];
+                document.getElementById("age").value = myCookies["_uage"];
+            }    
+        </script>
+</body>
+
+</html>

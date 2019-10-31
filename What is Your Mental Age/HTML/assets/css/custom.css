@@ -1,0 +1,56 @@
+body {
+    counter-reset: question-answers;
+}
+.question-answers .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.question-answers{
+    counter-increment: question-answers - 1;
+    list-style: none;
+    padding: 0px;
+    font-size: 30px;
+}
+.question-answers img{
+    max-width: 100%;
+}
+.question-answers > li {
+    vertical-align: middle;
+    width: 100%;
+    position: relative;
+    counter-increment: question-answers;
+    padding: 20px;
+}
+.question-answers > li::before{        
+    content: counter(question-answers);
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: #f54a08;
+}
+.question-answers > li + li{
+    border-top: 1px solid #ddd;
+}
+.question-answers input[type="radio"] {
+    width: 30px;
+    height: 30px;
+    margin: 40px;
+}
+.panel-body {
+    min-height: 200px;
+}
+#resetQuiz,
+#finalResult{
+    display: none;
+}
+#finalResult {
+    text-align: center;
+    font-size: 50px;
+    color: #ed9e1e;
+    font-weight: bold;
+    line-height: 1.4;
+    padding: 20px;
+}

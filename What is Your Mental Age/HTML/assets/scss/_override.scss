@@ -1,0 +1,30 @@
+.panel{
+    overflow: hidden;
+}
+
+.panel-gray{
+    @include panel-variant(color('border'), color('primart-text'), color('grayed'), transparent);
+}
+
+.panel-primary{
+    .panel-heading{
+        @include theme-gradient('positive');
+        color: color('primart-text');
+    }
+}
+
+.panel-heading{
+    padding: 15px 20px;
+    font-size: fontSize('md');
+    border: none;
+}
+
+.panel-title{
+    font-size: fontSize('md');
+}
+
+.container-fluid {
+    @include desktop{
+        @include padding(null,30px,null,30px);
+    }
+}
